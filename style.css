@@ -1,0 +1,178 @@
+/* Reset y estilos base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #f4f6f9;
+  color: #333;
+  padding-bottom: 70px;
+  line-height: 1.6;
+}
+
+/* Encabezado */
+header {
+  background: #131e46;
+  color: white;
+  padding: 1em 1.5em;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 1.6em;
+}
+
+/* Navegación tipo pestañas */
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background: white;
+  border-bottom: 1px solid #ddd;
+}
+
+.tab {
+  flex: 1 1 33.33%;
+  padding: 0.8em;
+  text-align: center;
+  cursor: pointer;
+  font-size: 1em;
+  color: #333;
+  border: none;
+  background: #f4f4f4;
+  transition: background 0.3s ease;
+}
+
+.tab.active {
+  background: #33cc66;
+  color: white;
+  font-weight: bold;
+}
+
+/* Contenido de pestañas */
+.tab-content {
+  display: none;
+  padding: 1.5em 1em;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* Cards */
+.card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 1em;
+  margin: 1em 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* Formularios */
+form {
+  background: white;
+  border-radius: 10px;
+  padding: 1.5em;
+  margin: 1em auto;
+  max-width: 600px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+form input,
+form select,
+form button {
+  width: 100%;
+  margin-bottom: 1em;
+  padding: 0.9em;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+form input:focus,
+form select:focus {
+  border-color: #33cc66;
+  outline: none;
+}
+
+form button {
+  background: #33cc66;
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+form button:hover {
+  background: #28a956;
+}
+
+/* Menú inferior fijo */
+footer.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #131e46;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0.7em 0;
+  z-index: 1000;
+}
+
+.bottom-nav button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.bottom-nav button:hover {
+  transform: scale(1.1);
+}
+
+/* Responsive real */
+@media screen and (max-width: 768px) {
+  .tab {
+    flex: 1 1 50%;
+    font-size: 0.95em;
+  }
+
+  header h1 {
+    font-size: 1.4em;
+  }
+
+  form {
+    padding: 1.2em;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .tab {
+    flex: 1 1 100%;
+    font-size: 1em;
+    padding: 1em;
+  }
+
+  .tab-content {
+    padding: 1em 0.5em;
+  }
+
+  header h1 {
+    font-size: 1.2em;
+  }
+
+  .card {
+    padding: 1em;
+  }
+
+  .bottom-nav button {
+    font-size: 1em;
+  }
+}

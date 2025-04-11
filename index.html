@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buscador de Universidades</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Universidades en Colombia</h1>
+  </header>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="home">Inicio</button>
+    <button class="tab" data-tab="search">Búsqueda</button>
+    <button class="tab" data-tab="favorites">Favoritos</button>
+    <button class="tab" data-tab="register">Registro</button>
+    <button class="tab" data-tab="about">Acerca de</button>
+    <button class="tab" data-tab="contact">Contacto</button>
+  </div>
+
+  <main>
+    <section id="home" class="tab-content active">
+      <div class="card">
+        <h2>Bienvenido</h2>
+        <p>Consulta universidades colombianas y guarda tus favoritas.</p>
+      </div>
+    </section>
+
+    <section id="search" class="tab-content">
+      <input type="text" id="searchInput" placeholder="Buscar universidad...">
+      <select id="filterSelect">
+        <option value="">Todos los dominios</option>
+        <option value=".edu.co">.edu.co</option>
+        <option value=".gov.co">.gov.co</option>
+      </select>
+      <div id="universityList"></div>
+    </section>
+
+    <section id="favorites" class="tab-content">
+      <h2>Favoritos</h2>
+      <div id="favoritesList"></div>
+    </section>
+
+    <section id="register" class="tab-content">
+      <form id="registrationForm">
+        <h2>Formulario de Registro</h2>
+        <input type="text" name="nombre" placeholder="Nombre completo" required>
+        <input type="email" name="correo" placeholder="Correo electrónico" required>
+        <input type="tel" name="telefono" placeholder="Teléfono" required>
+        <input type="text" name="ciudad" placeholder="Ciudad" required>
+        <input type="text" name="pais" placeholder="País" required>
+        <input type="password" name="contraseña" placeholder="Contraseña" required>
+        <input type="password" name="confirmar_contraseña" placeholder="Confirmar contraseña" required>
+        <button type="submit">Registrarse</button>
+      </form>
+    </section>
+
+    <section id="about" class="tab-content">
+      <div class="card">
+        <h2>Acerca de</h2>
+        <p>Esta aplicación permite consultar universidades públicas y privadas disponibles en Colombia.</p>
+      </div>
+    </section>
+
+    <section id="contact" class="tab-content">
+      <div class="card">
+        <h2>Contacto</h2>
+        <p>Escríbenos a contacto@universidades.com</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bottom-nav">
+    <button data-tab="home">Inicio</button>
+    <button data-tab="search">Busqueda</button>
+    <button data-tab="favorites">Favoritos</button>
+    <button data-tab="register">Registro</button>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
