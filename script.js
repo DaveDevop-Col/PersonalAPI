@@ -11,17 +11,20 @@ document.addEventListener("DOMContentLoaded", () => {
   let universities = [];
 
   // 🌐 Obtener universidades desde la API
-  fetch("https://universities.hipolabs.com/search?country=Colombia")
-    .then(res => res.json())
-    .then(data => {
+  async function conexionUniversidades() {
+    try {
+      const res = await fetch("https://universities.hipolabs.com/search?country=Colombia");
+      const data = await res.json();
       universities = data;
       renderUniversities(universities);
       populateFilter(universities);
-    })
-    .catch(err => {
-      console.error("Error al cargar la API:", err);
+    } catch (error) {
+      console.error("Error al cargar la API:", error);
       universityList.innerHTML = "<p>Error al cargar universidades.</p>";
-    });
+    }
+  }
+
+  conexionUniversidades();
 
   // 📋 Mostrar universidades
   function renderUniversities(data) {
@@ -36,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <h3>${uni.name}</h3>
         <p><strong>País:</strong> ${uni.country}</p>
         <p><strong>Estado/Provincia:</strong> ${uni["state-province"] || "N/A"}</p>
-        <p><strong>Dominio:</strong> ${uni.domains[0]}</p>
+        <p><strong>Dominio:</strong> ${uni.domains.join(", ")}</p>
         <p><strong>Sitio Web:</strong> <a href="${uni.web_pages[0]}" target="_blank">${uni.web_pages[0]}</a></p>
         <button onclick="addToFavorites('${uni.name}', '${uni.web_pages[0]}')">⭐ Agregar a Favoritos</button>
       </div>
@@ -54,23 +57,26 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 🔽 Filtro por dominio
+  // 🔽 Filtro por dominio dinámico
   if (filterSelect) {
     filterSelect.addEventListener("change", () => {
       const value = filterSelect.value;
-      const filtered = universities.filter(uni =>
-        value ? uni.domains.some(domain => domain.includes(value)) : true
-      );
+      const filtered = value
+        ? universities.filter(uni =>
+            uni.domains.some(domain => domain.includes(value))
+          )
+        : universities;
       renderUniversities(filtered);
     });
   }
 
-  // 🧠 Llenar el select de filtro
+  // 🧠 Llenar el select de filtro con todos los dominios únicos
   function populateFilter(data) {
-    const domains = [...new Set(data.flatMap(uni => uni.domains))];
-    domains.sort();
-    filterSelect.innerHTML = '<option value="">Todos</option>' +
-      domains.map(domain => `<option value="${domain}">${domain}</option>`).join("");
+    const allDomains = data.flatMap(uni => uni.domains);
+    const uniqueDomains = [...new Set(allDomains)].sort();
+
+    filterSelect.innerHTML = '<option value="">Todos los dominios</option>' +
+      uniqueDomains.map(domain => `<option value="${domain}">${domain}</option>`).join("");
   }
 
   // ⭐ Agregar a favoritos
@@ -139,5 +145,5 @@ document.addEventListener("DOMContentLoaded", () => {
       form.reset();
     });
   }
-
 });
+

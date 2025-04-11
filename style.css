@@ -137,6 +137,64 @@ footer.bottom-nav {
   transform: scale(1.1);
 }
 
+/* Estilo específico para la búsqueda y filtro */
+#searchInput,
+#filterSelect {
+  max-width: 600px;
+  margin: 1em auto;
+  display: block;
+  padding: 0.9em;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+#searchInput:focus,
+#filterSelect:focus {
+  border-color: #33cc66;
+  outline: none;
+}
+
+/* Lista de universidades */
+#universityList {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  margin-top: 1em;
+}
+
+#universityList .card {
+  padding: 1em;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+#universityList .card h3 {
+  margin-bottom: 0.5em;
+  color: #131e46;
+}
+
+#universityList .card p {
+  margin-bottom: 0.2em;
+  font-size: 0.95em;
+  color: #555;
+}
+
+#universityList .card a {
+  display: inline-block;
+  margin-top: 0.5em;
+  color: #33cc66;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+#universityList .card a:hover {
+  text-decoration: underline;
+}
+
 /* Responsive real */
 @media screen and (max-width: 768px) {
   .tab {
