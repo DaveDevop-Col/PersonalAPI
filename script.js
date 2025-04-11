@@ -8,9 +8,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const favoritesList = document.getElementById("favoritesList");
   const form = document.getElementById("registrationForm");
 
-  let universities = [];
+  const universitySelect = document.getElementById("universitySelect");
+  const universitySelectSearch = document.getElementById("universitySelectSearch");
 
-  // 🌐 Obtener universidades desde la API
+  let universities = [];
+  let allUniversities = [];
+
+  // 🌐 Obtener universidades de Colombia
   async function conexionUniversidades() {
     try {
       const res = await fetch("https://universities.hipolabs.com/search?country=Colombia");
@@ -26,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   conexionUniversidades();
 
-  // 📋 Mostrar universidades
+  // 📋 Mostrar universidades en tarjetas
   function renderUniversities(data) {
     if (!universityList) return;
     if (data.length === 0) {
@@ -145,5 +149,47 @@ document.addEventListener("DOMContentLoaded", () => {
       form.reset();
     });
   }
-});
 
+  // 📌 🔽 LISTADO GENERAL DE UNIVERSIDADES PARA SELECT + BUSCADOR
+  async function cargarUniversidadesParaSelect() {
+    try {
+      const res = await fetch("https://universities.hipolabs.com/search");
+      const data = await res.json();
+      allUniversities = data;
+      renderUniversitiesSelect(allUniversities);
+    } catch (err) {
+      console.error("Error cargando universidades para el select:", err);
+    }
+  }
+
+  function renderUniversitiesSelect(lista) {
+    if (!universitySelect) return;
+    universitySelect.innerHTML = "";
+
+    if (lista.length === 0) {
+      const option = document.createElement("option");
+      option.textContent = "No se encontraron resultados.";
+      universitySelect.appendChild(option);
+      return;
+    }
+
+    lista.forEach(uni => {
+      const option = document.createElement("option");
+      option.value = uni.name;
+      option.textContent = uni.name;
+      universitySelect.appendChild(option);
+    });
+  }
+
+  if (universitySelectSearch) {
+    universitySelectSearch.addEventListener("input", () => {
+      const texto = universitySelectSearch.value.toLowerCase();
+      const filtradas = allUniversities.filter(u =>
+        u.name.toLowerCase().includes(texto)
+      );
+      renderUniversitiesSelect(filtradas);
+    });
+  }
+
+  cargarUniversidadesParaSelect();
+});
