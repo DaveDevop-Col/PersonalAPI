@@ -317,3 +317,4 @@ function verificarRespuesta(elemento, opcionSeleccionada, respuestaCorrecta) {
         });
     }
 }
+

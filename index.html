@@ -12,7 +12,7 @@
     <div class="tab" data-tab="categorias">Categorías</div>
     <div class="tab" data-tab="informacion">Información</div>
     <div class="tab" data-tab="perfil">Historia</div>
-    <div class="tab" data-tab="configuracion">Configuración</div>
+    <div class="tab" data-tab="configuracion">Favoritos</div>
     <div class="tab" data-tab="ayuda">Ayuda</div>
   </div>
 
@@ -188,12 +188,45 @@
   </div>
 </div>
     
-    <div class="tab-content" id="configuracion">
-      <h1>Configuración</h1>
-      <div class="config-container">
-        <p>Ajustes de la aplicación</p>
+<!-- En la sección de tabs -->
+<div class="tab" data-tab="favoritos">⭐ Favoritos</div>
+<div class="tab-content" id="favoritos">
+  <h1>Administrar Favoritos</h1>
+  <div class="crud-container">
+    <!-- Formulario para agregar/editar -->
+    <div class="crud-form">
+      <h2 id="form-titulo">Añadir Nueva Favorita</h2>
+      <input type="hidden" id="favorito-id">
+      <div class="form-group">
+        <label>Pregunta:</label>
+        <textarea id="favorito-pregunta" required></textarea>
+      </div>
+      <div class="form-group">
+        <label>Respuesta Correcta:</label>
+        <input type="text" id="favorito-respuesta" required>
+      </div>
+      <div class="form-group">
+        <label>Categoría:</label>
+        <input type="text" id="favorito-categoria" required>
+      </div>
+      <div class="form-buttons">
+        <button type="button" id="btn-guardar">Guardar</button>
+        <button type="button" id="btn-cancelar" class="secondary">Cancelar</button>
       </div>
     </div>
+
+    <!-- Listado y búsqueda -->
+    <div class="crud-list">
+      <div class="search-box">
+        <input type="text" id="buscar-favoritos" placeholder="Buscar...">
+        <button id="btn-limpiar-busqueda">×</button>
+      </div>
+      <div class="favoritos-lista" id="favoritos-lista">
+        <!-- Aquí se cargarán los favoritos -->
+      </div>
+    </div>
+  </div>
+</div>
     
     <div class="tab-content" id="ayuda">
       <h1>Centro de Ayuda</h1>
