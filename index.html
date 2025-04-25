@@ -3,81 +3,125 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Buscador de Universidades</title>
+  <title>Trivia por Categoría</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>Universidades en Colombia</h1>
-  </header>
-
   <div class="tabs">
-    <button class="tab active" data-tab="home">Inicio</button>
-    <button class="tab" data-tab="search">Búsqueda</button>
-    <button class="tab" data-tab="favorites">Favoritos</button>
-    <button class="tab" data-tab="register">Registro</button>
-    <button class="tab" data-tab="about">Acerca de</button>
-    <button class="tab" data-tab="contact">Contacto</button>
+    <div class="tab active" data-tab="inicio">Inicio</div>
+    <div class="tab" data-tab="categorias">Categorías</div>
+    <div class="tab" data-tab="informacion">Información</div>
+    <div class="tab" data-tab="perfil">Perfil</div>
+    <div class="tab" data-tab="configuracion">Configuración</div>
+    <div class="tab" data-tab="ayuda">Ayuda</div>
   </div>
 
-  <main>
-    <section id="home" class="tab-content active">
-      <div class="card">
-        <h2>Bienvenido</h2>
-        <p>Consulta universidades colombianas y guarda tus favoritas.</p>
+  <div class="container">
+    <div class="tab-content active" id="inicio">
+      <div class="welcome-container">
+        <h1>¡Bienvenido a TriviaMaster!</h1>
+        <p class="welcome-text">Pon a prueba tus conocimientos con nuestro juego de trivia interactivo</p>
+        <div class="welcome-features">
+          <div class="feature">
+            <span>📚</span>
+            <p>Más de 20 categorías diferentes</p>
+          </div>
+          <div class="feature">
+            <span>🏆</span>
+            <p>Compite por los primeros lugares</p>
+          </div>
+          <div class="feature">
+            <span>🎮</span>
+            <p>Diversión y aprendizaje garantizados</p>
+          </div>
+        </div>
       </div>
-    </section>
-
-    <section id="search" class="tab-content">
-      <input type="text" id="searchInput" placeholder="Buscar universidad...">
-      <select id="filterSelect">
-        <option value="">Todos los dominios</option>
-        <option value=".edu.co">.edu.co</option>
-        <option value=".gov.co">.gov.co</option>
-      </select>
-      <div id="universityList"></div>
-    </section>
-
-    <section id="favorites" class="tab-content">
-      <h2>Favoritos</h2>
-      <div id="favoritesList"></div>
-    </section>
-
-    <section id="register" class="tab-content">
-      <form id="registrationForm">
-        <h2>Formulario de Registro</h2>
-        <input type="text" name="nombre" placeholder="Nombre completo" required>
-        <input type="email" name="correo" placeholder="Correo electrónico" required>
-        <input type="tel" name="telefono" placeholder="Teléfono" required>
-        <input type="text" name="ciudad" placeholder="Ciudad" required>
-        <input type="text" name="pais" placeholder="País" required>
-        <input type="password" name="contraseña" placeholder="Contraseña" required>
-        <input type="password" name="confirmar_contraseña" placeholder="Confirmar contraseña" required>
-        <button type="submit">Registrarse</button>
-      </form>
-    </section>
-
-    <section id="about" class="tab-content">
-      <div class="card">
-        <h2>Acerca de</h2>
-        <p>Esta aplicación permite consultar universidades públicas y privadas disponibles en Colombia.</p>
+    </div>
+    
+    <div class="tab-content" id="categorias">
+      <h1>Selecciona una Categoría de Trivia</h1>
+      
+      <div class="filtros-container">
+        <div class="search-box">
+          <input type="text" id="buscador" placeholder="Buscar categorías...">
+          <span>🔍</span>
+        </div>
       </div>
-    </section>
-
-    <section id="contact" class="tab-content">
-      <div class="card">
-        <h2>Contacto</h2>
-        <p>Escríbenos a contacto@universidades.com</p>
+      
+      <div class="categorias" id="categorias-lista"></div>
+      <div id="preguntas-lista"></div>
+    </div>
+    
+    <div class="tab-content" id="informacion">
+      <h1>Acerca de TriviaMaster</h1>
+      <div class="info-container">
+        <div class="info-card">
+          <h2>¿Qué es TriviaMaster?</h2>
+          <p>TriviaMaster es una aplicación interactiva de preguntas y respuestas que te permite poner a prueba tus conocimientos en diversas categorías como ciencia, historia, arte, entretenimiento y más.</p>
+        </div>
+        <div class="info-card">
+          <h2>Características principales</h2>
+          <ul>
+            <li>Más de 20 categorías de conocimiento</li>
+            <li>Preguntas verificadas y actualizadas</li>
+            <li>Interfaz intuitiva y fácil de usar</li>
+            <li>Diseño responsive para móviles y tablets</li>
+            <li>Sistema de puntuación y progreso</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h2>Fuente de datos</h2>
+          <p>Las preguntas son proporcionadas por Open Trivia Database (opentdb.com), una base de datos abierta con miles de preguntas verificadas por la comunidad.</p>
+          <p>Este proyecto utiliza la API pública de Open Trivia DB para obtener las preguntas y categorías.</p>
+        </div>
+        <div class="info-card">
+          <h2>¿Cómo jugar?</h2>
+          <ol>
+            <li>Selecciona una categoría de tu interés</li>
+            <li>Responde las preguntas que aparecerán</li>
+            <li>Descubre inmediatamente si tu respuesta fue correcta</li>
+            <li>Mejora tus conocimientos y compite contigo mismo</li>
+          </ol>
+        </div>
       </div>
-    </section>
-  </main>
+    </div>
+    
+    <div class="tab-content" id="perfil">
+      <h1>Perfil</h1>
+      <div class="perfil-container">
+        <p>Configura tu perfil de usuario</p>
+      </div>
+    </div>
+    
+    <div class="tab-content" id="configuracion">
+      <h1>Configuración</h1>
+      <div class="config-container">
+        <p>Ajustes de la aplicación</p>
+      </div>
+    </div>
+    
+    <div class="tab-content" id="ayuda">
+      <h1>Ayuda</h1>
+      <div class="ayuda-container">
+        <p>¿Necesitas ayuda? Contáctanos</p>
+      </div>
+    </div>
+  </div>
 
-  <footer class="bottom-nav">
-    <button data-tab="home">Inicio</button>
-    <button data-tab="search">Busqueda</button>
-    <button data-tab="favorites">Favoritos</button>
-    <button data-tab="register">Registro</button>
-  </footer>
+  <div class="bottom-menu">
+    <div class="menu-item active" data-tab="inicio">
+      <span>Inicio</span>
+    </div>
+    <div class="menu-item" data-tab="categorias">
+      <span>Categorías</span>
+    </div>
+    <div class="menu-item" data-tab="informacion">
+      <span>Información</span>
+    </div>
+    <div class="menu-item" data-tab="perfil">
+      <span>Perfil</span>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>

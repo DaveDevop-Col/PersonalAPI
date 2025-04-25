@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trivia Interactiva</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Pestañas superiores -->
+    <div class="tabs">
+        <button class="tab-link active" onclick="openTab(event, 'categorias')">Categorías</button>
+        <button class="tab-link" onclick="openTab(event, 'preguntas')">Preguntas</button>
+        <button class="tab-link" onclick="openTab(event, 'resultados')">Resultados</button>
+        <button class="tab-link" onclick="openTab(event, 'perfil')">Perfil</button>
+        <button class="tab-link" onclick="openTab(event, 'configuracion')">Configuración</button>
+        <button class="tab-link" onclick="openTab(event, 'ayuda')">Ayuda</button>
+    </div>
+
+    <!-- Contenido de las pestañas -->
+    <div id="categorias" class="tab-content active">
+        <h2>Categorías</h2>
+        <div id="categorias-lista"></div> <!-- Aquí se mostrarán las categorías -->
+    </div>
+
+    <div id="preguntas" class="tab-content">
+        <h2>Preguntas</h2>
+        <div id="preguntas-lista"></div> <!-- Aquí se mostrarán las preguntas -->
+    </div>
+
+    <div id="resultados" class="tab-content">
+        <h2>Resultados</h2>
+        <p>Aquí se mostrarán tus resultados.</p>
+    </div>
+
+    <div id="perfil" class="tab-content">
+        <h2>Perfil</h2>
+        <p>Aquí puedes ver y editar tu perfil.</p>
+    </div>
+
+    <div id="configuracion" class="tab-content">
+        <h2>Configuración</h2>
+        <p>Aquí puedes configurar tus preferencias.</p>
+    </div>
+
+    <div id="ayuda" class="tab-content">
+        <h2>Ayuda</h2>
+        <p>Aquí encontrarás información de ayuda.</p>
+    </div>
+
+    <!-- Menú inferior -->
+    <div class="footer-menu">
+        <button class="footer-item">Inicio</button>
+        <button class="footer-item">Acerca de</button>
+        <button class="footer-item">Contacto</button>
+        <button class="footer-item">FAQ</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

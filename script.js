@@ -1,195 +1,130 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const tabs = document.querySelectorAll(".tab, .bottom-nav button");
-  const contents = document.querySelectorAll(".tab-content");
-
-  const universityList = document.getElementById("universityList");
-  const searchInput = document.getElementById("searchInput");
-  const filterSelect = document.getElementById("filterSelect");
-  const favoritesList = document.getElementById("favoritesList");
-  const form = document.getElementById("registrationForm");
-
-  const universitySelect = document.getElementById("universitySelect");
-  const universitySelectSearch = document.getElementById("universitySelectSearch");
-
-  let universities = [];
-  let allUniversities = [];
-
-  // 🌐 Obtener universidades de Colombia
-  async function conexionUniversidades() {
-    try {
-      const res = await fetch("https://universities.hipolabs.com/search?country=Colombia");
-      const data = await res.json();
-      universities = data;
-      renderUniversities(universities);
-      populateFilter(universities);
-    } catch (error) {
-      console.error("Error al cargar la API:", error);
-      universityList.innerHTML = "<p>Error al cargar universidades.</p>";
+document.addEventListener("DOMContentLoaded", async function() {
+    // Sistema de tabs
+    const tabs = document.querySelectorAll('.tab');
+    const menuItems = document.querySelectorAll('.menu-item');
+    
+    function showTab(tabId) {
+        // Ocultar todos los contenidos
+        document.querySelectorAll('.tab-content').forEach(content => {
+            content.classList.remove('active');
+        });
+        
+        // Desactivar todas las tabs
+        tabs.forEach(tab => {
+            tab.classList.remove('active');
+        });
+        
+        // Desactivar todos los items del menú
+        menuItems.forEach(item => {
+            item.classList.remove('active');
+        });
+        
+        // Mostrar contenido seleccionado
+        document.getElementById(tabId).classList.add('active');
+        
+        // Activar tab correspondiente
+        document.querySelector(`.tab[data-tab="${tabId}"]`).classList.add('active');
+        
+        // Activar item de menú si existe
+        const menuItem = document.querySelector(`.menu-item[data-tab="${tabId}"]`);
+        if (menuItem) menuItem.classList.add('active');
+        
+        // Scroll al inicio
+        window.scrollTo(0, 0);
     }
-  }
-
-  conexionUniversidades();
-
-  // 📋 Mostrar universidades en tarjetas
-  function renderUniversities(data) {
-    if (!universityList) return;
-    if (data.length === 0) {
-      universityList.innerHTML = "<p>No se encontraron resultados.</p>";
-      return;
-    }
-
-    universityList.innerHTML = data.map(uni => `
-      <div class="card">
-        <h3>${uni.name}</h3>
-        <p><strong>País:</strong> ${uni.country}</p>
-        <p><strong>Estado/Provincia:</strong> ${uni["state-province"] || "N/A"}</p>
-        <p><strong>Dominio:</strong> ${uni.domains.join(", ")}</p>
-        <p><strong>Sitio Web:</strong> <a href="${uni.web_pages[0]}" target="_blank">${uni.web_pages[0]}</a></p>
-        <button onclick="addToFavorites('${uni.name}', '${uni.web_pages[0]}')">⭐ Agregar a Favoritos</button>
-      </div>
-    `).join("");
-  }
-
-  // 🔎 Buscador
-  if (searchInput) {
-    searchInput.addEventListener("input", () => {
-      const query = searchInput.value.toLowerCase();
-      const filtered = universities.filter(uni =>
-        uni.name.toLowerCase().includes(query)
-      );
-      renderUniversities(filtered);
+    
+    // Event listeners para tabs
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => showTab(tab.dataset.tab));
     });
-  }
-
-  // 🔽 Filtro por dominio dinámico
-  if (filterSelect) {
-    filterSelect.addEventListener("change", () => {
-      const value = filterSelect.value;
-      const filtered = value
-        ? universities.filter(uni =>
-            uni.domains.some(domain => domain.includes(value))
-          )
-        : universities;
-      renderUniversities(filtered);
+    
+    // Event listeners para menú inferior
+    menuItems.forEach(item => {
+        item.addEventListener('click', () => showTab(item.dataset.tab));
     });
-  }
-
-  // 🧠 Llenar el select de filtro con todos los dominios únicos
-  function populateFilter(data) {
-    const allDomains = data.flatMap(uni => uni.domains);
-    const uniqueDomains = [...new Set(allDomains)].sort();
-
-    filterSelect.innerHTML = '<option value="">Todos los dominios</option>' +
-      uniqueDomains.map(domain => `<option value="${domain}">${domain}</option>`).join("");
-  }
-
-  // ⭐ Agregar a favoritos
-  window.addToFavorites = function (name, url) {
-    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    if (!favorites.find(fav => fav.name === name)) {
-      favorites.push({ name, url });
-      localStorage.setItem("favorites", JSON.stringify(favorites));
-      alert("Agregado a favoritos");
-    } else {
-      alert("Ya está en favoritos");
-    }
-  };
-
-  // ❤️ Mostrar favoritos
-  function renderFavorites() {
-    if (!favoritesList) return;
-    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-
-    if (favorites.length === 0) {
-      favoritesList.innerHTML = "<p>No hay favoritos aún.</p>";
-      return;
-    }
-
-    favoritesList.innerHTML = favorites.map((fav, index) => `
-      <div class="card">
-        <h3>${fav.name}</h3>
-        <p><a href="${fav.url}" target="_blank">${fav.url}</a></p>
-        <button onclick="removeFavorite(${index})">🗑️ Eliminar</button>
-      </div>
-    `).join("");
-  }
-
-  // 🗑️ Eliminar favorito
-  window.removeFavorite = function(index) {
-    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    favorites.splice(index, 1);
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-    renderFavorites();
-  };
-
-  // 📑 Cambiar pestañas
-  tabs.forEach(tab => {
-    tab.addEventListener("click", () => {
-      const target = tab.getAttribute("data-tab");
-
-      tabs.forEach(t => t.classList.remove("active"));
-      contents.forEach(c => c.classList.remove("active"));
-
-      tab.classList.add("active");
-      document.getElementById(target).classList.add("active");
-
-      if (target === "favorites") {
-        renderFavorites();
-      }
-    });
-  });
-
-  // 📝 Formulario de registro
-  if (form) {
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const data = new FormData(form);
-      const values = Object.fromEntries(data.entries());
-      alert("¡Registro exitoso!\n" + JSON.stringify(values, null, 2));
-      form.reset();
-    });
-  }
-
-  // 📌 🔽 LISTADO GENERAL DE UNIVERSIDADES PARA SELECT + BUSCADOR
-  async function cargarUniversidadesParaSelect() {
-    try {
-      const res = await fetch("https://universities.hipolabs.com/search");
-      const data = await res.json();
-      allUniversities = data;
-      renderUniversitiesSelect(allUniversities);
-    } catch (err) {
-      console.error("Error cargando universidades para el select:", err);
-    }
-  }
-
-  function renderUniversitiesSelect(lista) {
-    if (!universitySelect) return;
-    universitySelect.innerHTML = "";
-
-    if (lista.length === 0) {
-      const option = document.createElement("option");
-      option.textContent = "No se encontraron resultados.";
-      universitySelect.appendChild(option);
-      return;
-    }
-
-    lista.forEach(uni => {
-      const option = document.createElement("option");
-      option.value = uni.name;
-      option.textContent = uni.name;
-      universitySelect.appendChild(option);
-    });
-  }
-
-  if (universitySelectSearch) {
-    universitySelectSearch.addEventListener("input", () => {
-      const texto = universitySelectSearch.value.toLowerCase();
-      const filtradas = allUniversities.filter(u =>
-        u.name.toLowerCase().includes(texto)
-      );
-      renderUniversitiesSelect(filtradas);
-    });
-  }
-
-  cargarUniversidadesParaSelect();
+    
+    // Cargar categorías al mostrar esa pestaña
+    document.getElementById('categorias').addEventListener('animationend', cargarCategorias);
+    
+    // Mostrar inicio por defecto
+    showTab('inicio');
 });
+
+async function cargarCategorias() {
+    const categoriasLista = document.getElementById("categorias-lista");
+    if (categoriasLista.innerHTML !== '') return;
+    
+    try {
+        const response = await fetch("https://opentdb.com/api_category.php");
+        const data = await response.json();
+    
+        if (data.trivia_categories?.length > 0) {
+            categoriasLista.innerHTML = data.trivia_categories.map(categoria => `
+                <div class="categoria" onclick="obtenerPreguntas(${categoria.id})">
+                    ${categoria.name}
+                </div>
+            `).join('');
+        } else {
+            categoriasLista.innerHTML = '<p class="error">No se pudieron cargar las categorías</p>';
+        }
+    } catch (error) {
+        categoriasLista.innerHTML = '<p class="error">Error de conexión</p>';
+        console.error("Error:", error);
+    }
+}
+
+async function obtenerPreguntas(categoriaId) {
+    const preguntasLista = document.getElementById("preguntas-lista");
+    preguntasLista.innerHTML = '<p>Cargando preguntas...</p>';
+    
+    try {
+        const response = await fetch(`https://opentdb.com/api.php?amount=5&category=${categoriaId}`);
+        const data = await response.json();
+    
+        if (data.results?.length > 0) {
+            preguntasLista.innerHTML = data.results.map((pregunta, index) => {
+                const opciones = [...pregunta.incorrect_answers, pregunta.correct_answer]
+                    .sort(() => Math.random() - 0.5);
+                
+                return `
+                    <div class="pregunta">
+                        <h2>${index + 1}. ${pregunta.question}</h2>
+                        <div class="opciones">
+                            ${opciones.map(opcion => `
+                                <div class="opcion" onclick="verificarRespuesta(this, '${opcion}', '${pregunta.correct_answer}')">
+                                    ${opcion}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        } else {
+            preguntasLista.innerHTML = '<p class="error">No hay preguntas disponibles</p>';
+        }
+    } catch (error) {
+        preguntasLista.innerHTML = '<p class="error">Error al cargar preguntas</p>';
+        console.error("Error:", error);
+    }
+}
+
+function verificarRespuesta(elemento, opcionSeleccionada, respuestaCorrecta) {
+    // Deshabilitar todas las opciones
+    elemento.parentNode.querySelectorAll('.opcion').forEach(opcion => {
+        opcion.style.pointerEvents = 'none';
+    });
+    
+    // Marcar respuesta
+    if (opcionSeleccionada === respuestaCorrecta) {
+        elemento.classList.add('correcta');
+    } else {
+        elemento.classList.add('incorrecta');
+        // Mostrar la correcta
+        elemento.parentNode.querySelectorAll('.opcion').forEach(opcion => {
+            if (opcion.textContent === respuestaCorrecta) {
+                opcion.classList.add('correcta');
+            }
+        });
+    }
+}
+  
