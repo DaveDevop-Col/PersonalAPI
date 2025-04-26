@@ -14,10 +14,6 @@ document.addEventListener("DOMContentLoaded", async function() {
           tab.classList.remove('active');
       });
       
-      // Desactivar todos los items del menú
-      menuItems.forEach(item => {
-          item.classList.remove('active');
-      });
       
       // Mostrar contenido seleccionado
       document.getElementById(tabId).classList.add('active');
@@ -297,24 +293,4 @@ async function obtenerPreguntas(categoriaId) {
     }
 }
 
-// Verificar respuesta (mantener tu función existente)
-function verificarRespuesta(elemento, opcionSeleccionada, respuestaCorrecta) {
-    // Deshabilitar todas las opciones
-    elemento.parentNode.querySelectorAll('.opcion').forEach(opcion => {
-        opcion.style.pointerEvents = 'none';
-    });
-    
-    // Marcar respuesta
-    if (opcionSeleccionada === respuestaCorrecta) {
-        elemento.classList.add('correcta');
-    } else {
-        elemento.classList.add('incorrecta');
-        // Mostrar la correcta
-        elemento.parentNode.querySelectorAll('.opcion').forEach(opcion => {
-            if (opcion.textContent === respuestaCorrecta) {
-                opcion.classList.add('correcta');
-            }
-        });
-    }
-}
 
