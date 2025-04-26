@@ -812,67 +812,130 @@ body {
 .btn-eliminar {
   color: #e74c3c;
 }
-/* ========= MENÚ INFERIOR ========= */
+/* ========= MENÚ INFERIOR RESPONSIVE ========= */
 .bottom-menu {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: #2c3e50; /* Azul oscuro */
+  background-color: #2c3e50;
   display: flex;
-  padding: 12px 0;
+  padding: 8px 0;
   box-shadow: 0 -3px 15px rgba(0,0,0,0.2);
   z-index: 1000;
-  border-top: 2px solid #ffd700; /* Amarillo trivial */
+  border-top: 2px solid #ffd700;
+  max-height: 60px; /* Altura máxima para móviles */
 }
 
 .menu-item {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   flex: 1;
-  padding: 5px;
+  padding: 5px 2px;
   cursor: pointer;
   color: #ecf0f1;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  position: relative;
-}
-
-.menu-item::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 3px;
-  background-color: #ffd700; /* Amarillo trivial */
-  transition: width 0.3s ease;
+  transition: all 0.3s ease;
+  min-width: 0; /* Permite que los items se ajusten */
+  overflow: hidden;
 }
 
 .menu-item.active {
-  color: #ffd700; /* Amarillo trivial */
-}
-
-.menu-item.active::after {
-  width: 60%;
+  color: #ffd700;
 }
 
 .menu-item span:first-child {
-  font-size: 1.4rem;
-  margin-bottom: 5px;
+  font-size: 1.2rem;
+  margin-bottom: 2px;
   transition: all 0.3s ease;
 }
 
-.menu-item.active span:first-child {
-  transform: translateY(-5px);
-}
-
 .menu-item span:last-child {
-  font-size: 0.8rem;
+  font-size: 0.6rem;
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* Efecto de activación */
+.menu-item.active span:first-child {
+  transform: translateY(-3px);
+  text-shadow: 0 2px 5px rgba(255, 215, 0, 0.5);
+}
+
+/* ========= MEDIA QUERIES ESPECÍFICAS PARA MÓVIL ========= */
+@media (max-width: 768px) {
+  .bottom-menu {
+    padding: 5px 0;
+    max-height: 55px;
+  }
+  
+  .menu-item span:first-child {
+    font-size: 1.1rem;
+    margin-bottom: 0;
+  }
+  
+  .menu-item span:last-child {
+    font-size: 0.55rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .bottom-menu {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 3px;
+  }
+  
+  .menu-item {
+    min-width: 70px;
+    padding: 3px 1px;
+  }
+  
+  .menu-item span:first-child {
+    font-size: 1rem;
+  }
+  
+  .menu-item span:last-child {
+    font-size: 0.5rem;
+  }
+}
+
+/* Para pantallas muy pequeñas (ej: Galaxy Fold) */
+@media (max-width: 320px) {
+  .menu-item {
+    min-width: 60px;
+  }
+  
+  .menu-item span:first-child {
+    font-size: 0.9rem;
+  }
+  
+  .menu-item span:last-child {
+    font-size: 0.45rem;
+  }
+}
+
+/* Ajuste para landscape en móviles */
+@media (max-height: 500px) and (orientation: landscape) {
+  .bottom-menu {
+    max-height: 50px;
+    padding: 3px 0;
+  }
+  
+  .menu-item span:last-child {
+    display: none;
+  }
+  
+  .menu-item span:first-child {
+    margin-bottom: 0;
+    font-size: 1.3rem;
+  }
 }
 
 /* ========= MEDIA QUERIES ========= */
