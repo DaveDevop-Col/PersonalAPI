@@ -812,7 +812,7 @@ body {
 .btn-eliminar {
   color: #e74c3c;
 }
-/* ========= MENÚ INFERIOR RESPONSIVE ========= */
+/* ========= MENÚ INFERIOR FULL RESPONSIVE ========= */
 .bottom-menu {
   position: fixed;
   bottom: 0;
@@ -820,11 +820,12 @@ body {
   right: 0;
   background-color: #2c3e50;
   display: flex;
-  padding: 8px 0;
-  box-shadow: 0 -3px 15px rgba(0,0,0,0.2);
+  padding: 6px 0;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.15);
   z-index: 1000;
-  border-top: 2px solid #ffd700;
-  max-height: 60px; /* Altura máxima para móviles */
+  border-top: 1px solid #ffd700;
+  height: auto;
+  min-height: 56px; /* Altura mínima accesible */
 }
 
 .menu-item {
@@ -833,38 +834,131 @@ body {
   align-items: center;
   justify-content: center;
   flex: 1;
-  padding: 5px 2px;
+  padding: 4px 2px;
   cursor: pointer;
   color: #ecf0f1;
-  transition: all 0.3s ease;
-  min-width: 0; /* Permite que los items se ajusten */
+  transition: all 0.2s ease;
+  min-width: 0;
   overflow: hidden;
+  position: relative;
 }
 
 .menu-item.active {
   color: #ffd700;
 }
 
-.menu-item span:first-child {
-  font-size: 1.2rem;
+.menu-item .icon {
+  font-size: clamp(18px, 4vw, 22px); /* Rango fluido */
   margin-bottom: 2px;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
-.menu-item span:last-child {
-  font-size: 0.6rem;
+.menu-item .label {
+  font-size: clamp(10px, 2.5vw, 12px); /* Texto responsivo */
   font-weight: 500;
   text-transform: uppercase;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 100%;
+  max-width: 95%;
+  letter-spacing: 0.3px;
 }
 
-/* Efecto de activación */
-.menu-item.active span:first-child {
+/* Efecto activo mejorado */
+.menu-item.active .icon {
   transform: translateY(-3px);
-  text-shadow: 0 2px 5px rgba(255, 215, 0, 0.5);
+  text-shadow: 0 2px 4px rgba(255, 215, 0, 0.3);
+}
+
+.menu-item.active::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40%;
+  height: 2px;
+  background-color: #ffd700;
+}
+
+/* ========= MEDIA QUERIES ESPECÍFICAS ========= */
+@media (max-width: 768px) {
+  .bottom-menu {
+    padding: 5px 0;
+    min-height: 52px;
+  }
+  
+  .menu-item .icon {
+    font-size: clamp(16px, 4vw, 20px);
+  }
+  
+  .menu-item .label {
+    font-size: clamp(9px, 2.5vw, 11px);
+  }
+}
+
+@media (max-width: 480px) {
+  .bottom-menu {
+    padding: 4px 0;
+    min-height: 50px;
+  }
+  
+  .menu-item {
+    padding: 3px 1px;
+  }
+  
+  .menu-item .icon {
+    font-size: clamp(15px, 4vw, 18px);
+    margin-bottom: 1px;
+  }
+  
+  .menu-item .label {
+    font-size: clamp(8px, 2.5vw, 10px);
+  }
+  
+  .menu-item.active::after {
+    width: 35%;
+  }
+}
+
+/* Para pantallas muy pequeñas (ej: iPhone SE) */
+@media (max-width: 320px) {
+  .menu-item .label {
+    font-size: clamp(7px, 2.5vw, 9px);
+  }
+  
+  .menu-item.active .icon {
+    transform: translateY(-2px);
+  }
+}
+
+/* Modo landscape en móviles */
+@media (max-height: 500px) and (orientation: landscape) {
+  .bottom-menu {
+    min-height: 46px;
+    padding: 3px 0;
+  }
+  
+  .menu-item {
+    flex-direction: row;
+    gap: 5px;
+  }
+  
+  .menu-item .icon {
+    margin-bottom: 0;
+    font-size: clamp(14px, 3vw, 16px);
+  }
+  
+  .menu-item .label {
+    font-size: clamp(8px, 2vw, 10px);
+  }
+  
+  .menu-item.active::after {
+    top: auto;
+    bottom: 0;
+    width: 60%;
+    height: 2px;
+  }
 }
 
 /* ========= MEDIA QUERIES ESPECÍFICAS PARA MÓVIL ========= */
