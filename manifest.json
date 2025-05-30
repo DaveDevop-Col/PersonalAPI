@@ -1,7 +1,7 @@
 {
   "name": "Trivia Challenge",
   "short_name": "Trivia",
-  "start_url": ".",
+  "start_url": "/dave-trivia/",
   "display": "standalone",
   "background_color": "#0f172a",
   "theme_color": "#3b82f6",
