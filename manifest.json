@@ -8,12 +8,12 @@
   "description": "Juego de trivia por categorías. Aprende y reta tus conocimientos.",
   "icons": [
     {
-      "src": "icons/icon-192.png",
+      "src": "icon-only.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "icons/icon-512.png",
+      "src": "icon-foreground.png",
       "sizes": "512x512",
       "type": "image/png"
     }
