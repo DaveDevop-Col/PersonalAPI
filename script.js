@@ -131,11 +131,6 @@ let categoriasOriginales = [];
 document.addEventListener("DOMContentLoaded", function() {
     // Cargar categorías si estamos en la pestaña correspondiente
     setupTabs();
-    
-    // Configurar el buscador
-    const buscador = document.getElementById('buscador-categorias');
-    buscador.addEventListener('input', function() {
-        buscarCategorias(this.value.toLowerCase());
     });
 });
 
