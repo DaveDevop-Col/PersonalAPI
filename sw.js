@@ -8,7 +8,8 @@ self.addEventListener('install', e => {
         '/script.js',
         '/sw.js',
         '/manifest.json',
-        // agrega aquí los íconos si los tienes en una carpeta o sueltos
+        'icon-foreground.png'
+        'icon-only.png'
       ]);
     })
   );
