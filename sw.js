@@ -1,14 +1,14 @@
 const CACHE_NAME = 'trivia-cache-v1';
 const urlsToCache = [
-  './',
-  './index.html',
-  './style.css',
-  './js/script.js',    // Ruta corregida: ahora apunta a /js/script.js
-  './manifest.json',
-  './icon-only.png',
-  './icon-foreground.png',
-  './sw.js'
+  '/dave-trivia/',
+  '/dave-trivia/index.html',
+  '/dave-trivia/style.css',
+  '/dave-trivia/js/script.js',
+  '/dave-trivia/icon-only.png',
+  '/dave-trivia/icon-foreground.png',
+  '/dave-trivia/manifest.json'
 ];
+
 
 self.addEventListener('install', event => {
   event.waitUntil(
