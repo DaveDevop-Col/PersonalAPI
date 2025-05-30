@@ -1,20 +1,25 @@
 {
-  "name": "Tu App Trivia",
+  "name": "Trivia Challenge",
   "short_name": "Trivia",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#131e46",
+  "background_color": "#0f172a",
+  "theme_color": "#3b82f6",
+  "description": "Juego de trivia con preguntas desafiantes",
   "icons": [
     {
-      "src": "icon-192.png",
+      "src": "icon-only.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      "src": "icon-512.png",
+      "src": "icon-foreground.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
-  ]
+  ],
+  "lang": "es-ES",
+  "orientation": "portrait-primary"
 }
