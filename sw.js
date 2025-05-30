@@ -1,24 +1,23 @@
-self.addEventListener('install', e => {
-  e.waitUntil(
-    caches.open('triviaapp-v1').then(cache => {
-      return cache.addAll([
-        './',
-        './index.html',
-        './style.css',
-        './script.js',
-        './sw.js',
-        './manifest.json',
-        './icon-foreground.png',
-        './icon-only.png'
-      ]);
-    })
+const CACHE_NAME = 'trivia-cache-v1';
+const urlsToCache = [
+  '/',
+  '/index.html',
+  '/styles.css',
+  '/app.js',
+  '/icon-192.png',
+  '/icon-512.png',
+  // agrega aquí más archivos estáticos si tienes
+];
+
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
   );
 });
 
-self.addEventListener('fetch', e => {
-  e.respondWith(
-    caches.match(e.request).then(response => {
-      return response || fetch(e.request);
-    })
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request)
+      .then(response => response || fetch(event.request))
   );
 });
